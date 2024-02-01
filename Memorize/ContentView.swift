@@ -17,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         
         VStack{
-            Text("Запоминай!").font(.title).bold()
+            Text("Запоминай!").font(.system(.title, design: .rounded)).bold()
             ScrollView{
                 cards
             }
@@ -60,17 +60,21 @@ struct ContentView: View {
             emojis.append(contentsOf: emojis)
             emojis.shuffle()
         }, label:{
-            Image(systemName: symbol)
+            VStack{
+                Image(systemName: symbol)
+                Text(theme).font(.system(size: 15, design: .rounded))
+            }
+            
         })
     }
     var wildTheme: some View{
-        themeChangingHandler(to: "wild", symbol: "tree")
+        themeChangingHandler(to: "Природа", symbol: "tree")
     }
     var foodTheme: some View{
-        themeChangingHandler(to: "food", symbol: "carrot")
+        themeChangingHandler(to: "Еда", symbol: "carrot")
     }
     var faceTheme: some View{
-        themeChangingHandler(to: "face", symbol: "face.smiling")
+        themeChangingHandler(to: "Лица", symbol: "face.smiling")
     }
 }
 
