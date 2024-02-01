@@ -13,11 +13,16 @@ struct ContentView: View {
     
     var body: some View {
         VStack{
-            cards
+            ScrollView{
+                cards
+            }
+            Spacer()
             cardCountAdjusters
+            
         }
         .padding()
     }
+    
     var cards: some View{
         HStack (){
             ForEach(0..<cardCount, id: \.self){ index in
