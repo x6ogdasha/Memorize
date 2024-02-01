@@ -8,54 +8,69 @@
 import SwiftUI
 
 struct ContentView: View {
-    let emojis: [String] = ["🐰", "🐻", "🦦", "🐟", "🦋", "🍀", "🐿️", "🌧️"]
+    let wild: [String] = ["🐰", "🐻", "🦦", "🐟", "🦋", "🐿️"]
+    let food: [String] = ["🍔", "🍗", "🍰", "🍕", "🥟", "🍪", "🍩", "🥗", "🍤"]
+    let face: [String] = ["😊", "😘", "😜", "🤩", "😎", "🤤", "🤠", "🤥"]
+    @State var emojis: [String] = []
     @State var cardCount: Int = 2
     
     var body: some View {
+        
         VStack{
+            Text("Запоминай!").font(.title).bold()
             ScrollView{
                 cards
             }
             Spacer()
-            cardCountAdjusters
-            
+            themeChangingHandlers
         }
         .padding()
     }
     
     var cards: some View{
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 120))]){
-            ForEach(0..<cardCount, id: \.self){ index in
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]){
+            ForEach(0..<emojis.count, id: \.self){ index in
                 CardView(content: emojis[index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
         .foregroundColor(.green)
     }
-    
-    var cardCountAdjusters: some View{
+    var themeChangingHandlers: some View{
         HStack{
-            cardRemover
+            wildTheme
             Spacer()
-            cardAdder
+            foodTheme
+            Spacer()
+            faceTheme
         }.font(.title)
     }
-    
-    func cardCountAdjuster(by offset: Int, symbol: String) -> some View{
+    func themeChangingHandler(to theme: String, symbol: String) -> some View{
         Button(action:{
-            cardCount += offset
+            switch(theme){
+            case "wild":
+                emojis.replace(emojis, with: wild)
+            case "food":
+                emojis.replace(emojis, with: food)
+            case "face":
+                emojis.replace(emojis, with: face)
+            default:
+                print("problem")
+            }
+            emojis.append(contentsOf: emojis)
+            emojis.shuffle()
         }, label:{
             Image(systemName: symbol)
         })
-        .disabled(cardCount + offset < 1 || cardCount + offset > emojis.count)
     }
-    
-    var cardRemover: some View{
-       cardCountAdjuster(by: -1, symbol: "rectangle.stack.badge.minus.fill")
+    var wildTheme: some View{
+        themeChangingHandler(to: "wild", symbol: "tree")
     }
-    
-    var cardAdder: some View{
-        cardCountAdjuster(by: 1, symbol: "rectangle.stack.badge.plus.fill")
+    var foodTheme: some View{
+        themeChangingHandler(to: "food", symbol: "carrot")
+    }
+    var faceTheme: some View{
+        themeChangingHandler(to: "face", symbol: "face.smiling")
     }
 }
 
@@ -74,7 +89,6 @@ struct CardView: View{
             }
             .opacity(isFaceUp ? 1 : 0)
             base.fill().opacity(isFaceUp ? 0 : 1)
-            
         }
         .onTapGesture{
             isFaceUp.toggle()
