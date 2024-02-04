@@ -29,12 +29,12 @@ struct ContentView: View {
     
     var cards: some View{
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]){
-            ForEach(0..<emojis.count, id: \.self){ index in
+            ForEach(emojis.indices, id: \.self){ index in
                 CardView(content: emojis[index])
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
-        .foregroundColor(.green)
+        .foregroundColor(.gray)
     }
     var themeChangingHandlers: some View{
         HStack{
@@ -48,11 +48,11 @@ struct ContentView: View {
     func themeChangingHandler(to theme: String, symbol: String) -> some View{
         Button(action:{
             switch(theme){
-            case "wild":
+            case "Природа":
                 emojis.replace(emojis, with: wild)
-            case "food":
+            case "Еда":
                 emojis.replace(emojis, with: food)
-            case "face":
+            case "Лица":
                 emojis.replace(emojis, with: face)
             default:
                 print("problem")
@@ -62,19 +62,19 @@ struct ContentView: View {
         }, label:{
             VStack{
                 Image(systemName: symbol)
-                Text(theme).font(.system(size: 15, design: .rounded))
+                Text(theme).font(.system(size: 10, design: .rounded)).bold()
             }
             
         })
     }
     var wildTheme: some View{
-        themeChangingHandler(to: "Природа", symbol: "tree")
+        themeChangingHandler(to: "Природа", symbol: "leaf")
     }
     var foodTheme: some View{
-        themeChangingHandler(to: "Еда", symbol: "carrot")
+        themeChangingHandler(to: "Еда", symbol: "fork.knife")
     }
     var faceTheme: some View{
-        themeChangingHandler(to: "Лица", symbol: "face.smiling")
+        themeChangingHandler(to: "Лица", symbol: "face.smiling.inverse")
     }
 }
 
