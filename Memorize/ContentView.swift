@@ -8,11 +8,12 @@
 import SwiftUI
 
 struct ContentView: View {
+    var viewModel: EmojiMemoryGame
+    
     let wild: [String] = ["🐰", "🐻", "🦦", "🐟", "🦋", "🐿️"]
     let food: [String] = ["🍔", "🍗", "🍰", "🍕", "🥟", "🍪", "🍩", "🥗", "🍤"]
     let face: [String] = ["😊", "😘", "😜", "🤩", "😎", "🤤", "🤠", "🤥"]
     @State var emojis: [String] = []
-    @State var cardCount: Int = 2
     
     var body: some View {
         
@@ -34,7 +35,7 @@ struct ContentView: View {
                     .aspectRatio(2/3, contentMode: .fit)
             }
         }
-        .foregroundColor(.gray)
+        .foregroundColor(Color.gray)
     }
     var themeChangingHandlers: some View{
         HStack{
