@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EmojiMemoryGameView: View {
-    var viewModel: EmojiMemoryGame = EmojiMemoryGame() // плохо, исправлю позже
+    @ObservedObject var viewModel: EmojiMemoryGame
     
     var body: some View {
         
@@ -16,6 +16,9 @@ struct EmojiMemoryGameView: View {
             Text("Запоминай!").font(.system(.title, design: .rounded)).bold()
             ScrollView{
                 cards
+            }
+            Button("Shuffle"){
+                viewModel.shuffle()
             }
         }
         .padding()
@@ -63,5 +66,5 @@ struct CardView: View{
 
 
 #Preview {
-    EmojiMemoryGameView()
+    EmojiMemoryGameView(viewModel: EmojiMemoryGame())
 }
