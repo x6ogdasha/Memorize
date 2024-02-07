@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  EmojiMemoryGameView.swift
 //  Memorize
 //
 //  Created by Богдан Китаев on 29.12.2023.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
     var viewModel: EmojiMemoryGame
     
     let wild: [String] = ["🐰", "🐻", "🦦", "🐟", "🦋", "🐿️"]
@@ -29,10 +29,11 @@ struct ContentView: View {
     }
     
     var cards: some View{
-        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80))]){
-            ForEach(emojis.indices, id: \.self){ index in
-                CardView(content: emojis[index])
+        LazyVGrid(columns: [GridItem(.adaptive(minimum: 80), spacing: 0)], spacing: 0){
+            ForEach(viewModel.cards.indices, id: \.self){ index in
+                CardView(viewModel.cards[index])
                     .aspectRatio(2/3, contentMode: .fit)
+                    .padding(4)
             }
         }
         .foregroundColor(Color.gray)
@@ -104,5 +105,5 @@ struct CardView: View{
 
 
 #Preview {
-    ContentView()
+    EmojiMemoryGameView()
 }
