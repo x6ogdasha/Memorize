@@ -24,7 +24,7 @@ struct MemoryGame<CardContent> { // Типа модель
     }
     
     struct Card{
-        var isFaceUp = false
+        var isFaceUp = true
         var isMatched = false
         let content: CardContent
     }
