@@ -16,6 +16,7 @@ struct EmojiMemoryGameView: View {
             Text("Запоминай!").font(.system(.title, design: .rounded)).bold()
             ScrollView{
                 cards
+                    .animation(.default, value: viewModel.cards)
             }
             Button("Shuffle"){
                 viewModel.shuffle()
