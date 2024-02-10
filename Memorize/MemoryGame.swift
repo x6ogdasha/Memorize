@@ -15,8 +15,8 @@ struct MemoryGame<CardContent> where CardContent: Equatable { // Типа мод
         // add numberOfPairsOfCards x 2
         for pairIndex in 0 ..< max(2,numberOfPairsOfCards) {
             let content = cardContentFactory(pairIndex)
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(content: content, id: "\(pairIndex + 1)a"))
+            cards.append(Card(content: content, id: "\(pairIndex + 1)b"))
         }
     }
     func choose(_ card: Card){
@@ -26,9 +26,12 @@ struct MemoryGame<CardContent> where CardContent: Equatable { // Типа мод
         cards.shuffle()
     }
     
-    struct Card: Equatable {
+    struct Card: Equatable, Identifiable {
         var isFaceUp = true
         var isMatched = false
         let content: CardContent
+        
+        var id: String
+
     }
 }
