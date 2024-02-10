@@ -12,20 +12,20 @@ struct EmojiMemoryGameView: View {
     
     var body: some View {
         
-        VStack{
+        VStack {
             Text("Запоминай!").font(.system(.title, design: .rounded)).bold()
-            ScrollView{
+            ScrollView {
                 cards
                     .animation(.default, value: viewModel.cards)
             }
-            Button("Shuffle"){
+            Button("Shuffle") {
                 viewModel.shuffle()
             }
         }
         .padding()
     }
     
-    var cards: some View{
+    var cards: some View {
         LazyVGrid(columns: [GridItem(.adaptive(minimum: 80), spacing: 0)], spacing: 0){
             ForEach(viewModel.cards){ card in
                 CardView(card)
@@ -38,14 +38,14 @@ struct EmojiMemoryGameView: View {
    
 }
 
-struct CardView: View{
+struct CardView: View {
     let card: MemoryGame<String>.Card
     
     init(_ card: MemoryGame<String>.Card) {
         self.card = card
     }
     
-    var body: some View{
+    var body: some View {
         ZStack {
             let base = RoundedRectangle(cornerRadius: 12)
             
