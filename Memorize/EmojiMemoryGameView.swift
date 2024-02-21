@@ -14,10 +14,10 @@ struct EmojiMemoryGameView: View {
         
         VStack {
             Text("Запоминай!").font(.system(.title, design: .rounded)).bold()
-            ScrollView {
-                cards
-                    .animation(.default, value: viewModel.cards)
-            }
+            cards
+            .animation(.default, value: viewModel.cards)
+            Spacer()
+            Divider()
             Button("Shuffle") {
                 viewModel.shuffle()
             }
