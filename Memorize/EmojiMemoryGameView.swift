@@ -10,16 +10,18 @@ import SwiftUI
 struct EmojiMemoryGameView: View {
     @ObservedObject var viewModel: EmojiMemoryGame
     let aspectRatio: CGFloat = 2/3
+    let spacing: CGFloat = 4
     
     var body: some View {
         
         VStack {
             Text("Запоминай!").font(.system(.title, design: .rounded)).bold()
             cards
+            .foregroundColor(viewModel.color)
             .animation(.default, value: viewModel.cards)
             Spacer()
             Divider()
-            Button("Shuffle") {
+            Button("Shuffle") { 
                 viewModel.shuffle()
             }
         }
@@ -30,12 +32,11 @@ struct EmojiMemoryGameView: View {
     var cards: some View {
         AspectVGrid(viewModel.cards, aspectRatio: aspectRatio){ card in
                     CardView(card)
-                        .padding(4)
+                        .padding(spacing)
                         .onTapGesture {
                             viewModel.choose(card)
                         }
             }
-            .foregroundColor(Color.gray)
         }
 }
     
